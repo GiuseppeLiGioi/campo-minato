@@ -2,12 +2,27 @@ const containerCells = document.getElementById("container-cells")
 let overlay = document.getElementById("overlay")
 let message = document.getElementById("message")
 let restart = document.getElementById("restart")
-function startGame(){
+let easy = document.getElementById("easy")
+let medium = document.getElementById("medium")
+let hard = document.getElementById("hard")
+let difficulty = null;
+let totalCells = 0;
+
+
+
+
+
+function startGame(difficulty){
+
+if(difficulty === "easy") totalCells = 100
+else if(difficulty === "medium") totalCells = 81
+else if(difficulty === "hard") totalCells = 49
+
 
     let bombs = []
     
     while (bombs.length < 16) {
-        let n = Math.floor(Math.random() * 49);
+        let n = Math.floor(Math.random() * totalCells);
         if (!bombs.includes(n)) {
             bombs.push(n)
         }
@@ -20,8 +35,8 @@ function startGame(){
     
     let numbers = [];
     
-    while (numbers.length < 49) {
-        let n = Math.floor(Math.random() * 49) + 1;
+    while (numbers.length < totalCells) {
+        let n = Math.floor(Math.random() * totalCells) + 1;
         if (!numbers.includes(n)) {
             numbers.push(n)
         }
@@ -36,7 +51,7 @@ function startGame(){
     let gameOver = false;
     
     for (let i = 0; i < numbers.length; i++) {
-        let numeroCella = numbers[i];
+        //let numeroCella = numbers[i];
         let div = document.createElement("div");
         div.classList.add("cell")
         div.innerHTML = numbers[i];
@@ -71,9 +86,20 @@ function startGame(){
                 } else {
                     score++;
                     counter.innerHTML = `${"Contatore:" + score}`
-                    if (score >= 20) {
+                    if (difficulty === "hard" && score >= 20) {
                         gameOver = true;
                         message.innerText = " Complimenti, hai raggiunto il punteggio di 20 celle sicure🎉! HAI VINTO🎉! "
+                        overlay.style.display = 'flex';
+    
+                    }else if(difficulty === "medium" && score >= 30) {
+                        gameOver = true;
+                        message.innerText = " Complimenti, hai raggiunto il punteggio di 30 celle sicure🎉! HAI VINTO🎉! "
+                        overlay.style.display = 'flex';
+    
+                    }
+                    else if(difficulty === "easy" && score >= 40) {
+                        gameOver = true;
+                        message.innerText = " Complimenti, hai raggiunto il punteggio di 40 celle sicure🎉! HAI VINTO🎉! "
                         overlay.style.display = 'flex';
     
                     }
@@ -84,12 +110,31 @@ function startGame(){
     }
 }
 
-startGame();
+
 
 restart.addEventListener("click", () => {
     overlay.style.display = "none";
     containerCells.innerHTML = ""
-    startGame()
+    startGame(difficulty)
+})
+
+
+easy.addEventListener("click", () => {
+    difficulty = "easy";
+    containerCells.innerHTML = ""
+    startGame(difficulty)
+})
+
+medium.addEventListener("click", () => {
+    difficulty = "medium";
+    containerCells.innerHTML = ""
+    startGame(difficulty)
+})
+
+hard.addEventListener("click", () => {
+    difficulty = "hard";
+    containerCells.innerHTML = ""
+    startGame(difficulty)
 })
 
 
@@ -100,7 +145,7 @@ restart.addEventListener("click", () => {
 
 
 
-function verifyValue(arr, num) {
+/*function verifyValue(arr, num) {
     if (arr.includes(num)) {
         return true
     } else {
@@ -108,7 +153,7 @@ function verifyValue(arr, num) {
     }
 }
 verifyValue(numbers, 70)
-
+*/
 
 
 

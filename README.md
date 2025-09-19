@@ -68,6 +68,22 @@ Quando vinci:
 
 ---
 
+## Screenshot 📸
+
+### Schermata iniziale
+![Home](./screenshots/campo-1.jpg)
+
+### Griglie di Gioco
+![Gameplay](./screenshots/campo-2.png)
+
+### Output e visualizzazione sconfitta
+![Gameplay](./screenshots/campo-3.png)
+
+### Output e visualizzazione vittoria
+![Gameplay](./screenshots/campo-4.png)
+
+
+
 ## 👨‍💻 Autore
 
 Sviluppato da **Giuseppe Li Gioi** 💻  

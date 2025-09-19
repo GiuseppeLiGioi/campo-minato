@@ -5,24 +5,26 @@ let restart = document.getElementById("restart")
 let easy = document.getElementById("easy")
 let medium = document.getElementById("medium")
 let hard = document.getElementById("hard")
+let bsTime = document.getElementById("best-time")
 let difficulty, startTime, endTime, differenceTime = null;
-let totalCells, msTime= 0;
+let totalCells, msTime, bestTime = 0;
 
 
 
 
 
-function startGame(difficulty){
+function startGame(difficulty) {
 
-if(difficulty === "easy") totalCells = 100
-else if(difficulty === "medium") totalCells = 81
-else if(difficulty === "hard") totalCells = 49
+    if (difficulty === "easy") totalCells = 100
+    else if (difficulty === "medium") totalCells = 81
+    else if (difficulty === "hard") totalCells = 49
 
-startTime = Date.now()
+    startTime = Date.now()
+    bestTime = getBestTime(difficulty)
 
 
     let bombs = []
-    
+
     while (bombs.length < 16) {
         let n = Math.floor(Math.random() * totalCells);
         if (!bombs.includes(n)) {
@@ -30,13 +32,13 @@ startTime = Date.now()
         }
     }
     console.log(bombs)
-    
-    
-    
-    
-    
+
+
+
+
+
     let numbers = [];
-    
+
     while (numbers.length < totalCells) {
         let n = Math.floor(Math.random() * totalCells) + 1;
         if (!numbers.includes(n)) {
@@ -44,43 +46,43 @@ startTime = Date.now()
         }
     }
     console.log(numbers)
-    
-    
-    
-    
+
+
+
+
     let score = 0;
     let counter = document.getElementById("counter")
     let gameOver = false;
-    
+
     for (let i = 0; i < numbers.length; i++) {
         //let numeroCella = numbers[i];
         let div = document.createElement("div");
         div.classList.add("cell")
         div.innerHTML = numbers[i];
-    
+
         div.addEventListener("click", () => {
             if (gameOver) return;
             if (div.classList.contains("clicked")) {
                 return;
             } else {
                 div.classList.add("clicked")
-    
-    
+
+
                 if (bombs.includes(i)) {
                     div.innerHTML = "💣"
                     div.classList.add("bomba")
                     gameOver = true;
                     message.innerText = "BOOOOOMMM.. Ops hai fatto esplodere una bomba💣! HAI PERSO!"
                     overlay.style.display = 'flex';
-    
-    
-    
+
+
+
                     for (let i = 0; i < bombs.length; i++) {
                         let bomba = bombs[i]
-    
+
                         containerCells.children[bomba].innerHTML = "💣"
                         containerCells.children[bomba].classList.add("bomba")
-    
+
                     }
                     for (let j = 0; j < containerCells.children.length; j++) {
                         containerCells.children[j].classList.add("disabled");
@@ -94,25 +96,42 @@ startTime = Date.now()
                         overlay.style.display = 'flex';
                         endTime = Date.now()
                         differenceTime = endTime - startTime
-                        msTime = Math.floor(differenceTime / 1000); 
-    
-                    }else if(difficulty === "medium" && score >= 30) {
+                        msTime = Math.floor(differenceTime / 1000);
+                        if (msTime < bestTime || bestTime === null) {
+                            saveBestTime(difficulty, msTime)
+                            bestTime = msTime
+                            bsTime.innerHTML = bestTime
+                        }
+
+
+                    } else if (difficulty === "medium" && score >= 30) {
                         gameOver = true;
                         message.innerText = " Complimenti, hai raggiunto il punteggio di 30 celle sicure🎉! HAI VINTO🎉! "
                         overlay.style.display = 'flex';
                         endTime = Date.now()
                         differenceTime = endTime - startTime
-                        msTime = Math.floor(differenceTime / 1000);  
-    
+                        msTime = Math.floor(differenceTime / 1000);
+                        if (msTime < bestTime || bestTime === null) {
+                            saveBestTime(difficulty, msTime)
+                            bestTime = msTime
+                            bsTime.innerHTML = bestTime
+                        }
+
+
                     }
-                    else if(difficulty === "easy" && score >= 40) {
+                    else if (difficulty === "easy" && score >= 40) {
                         gameOver = true;
                         message.innerText = " Complimenti, hai raggiunto il punteggio di 40 celle sicure🎉! HAI VINTO🎉! "
                         overlay.style.display = 'flex';
                         endTime = Date.now()
                         differenceTime = endTime - startTime
-                        msTime = Math.floor(differenceTime / 1000); 
-    
+                        msTime = Math.floor(differenceTime / 1000);
+                        if (msTime < bestTime || bestTime === null) {
+                            saveBestTime(difficulty, msTime)
+                            bestTime = msTime
+                            bsTime.innerHTML = bestTime
+                        }
+
                     }
                 }
             }
@@ -126,7 +145,7 @@ startTime = Date.now()
 restart.addEventListener("click", () => {
     overlay.style.display = "none";
     containerCells.innerHTML = ""
-    counter.innerHTML = ""
+    counter.innerHTML = "Contatore:"
     startGame(difficulty)
 })
 

@@ -5,8 +5,8 @@ let restart = document.getElementById("restart")
 let easy = document.getElementById("easy")
 let medium = document.getElementById("medium")
 let hard = document.getElementById("hard")
-let difficulty = null;
-let totalCells = 0;
+let difficulty, startTime, endTime, differenceTime = null;
+let totalCells, msTime= 0;
 
 
 
@@ -17,6 +17,8 @@ function startGame(difficulty){
 if(difficulty === "easy") totalCells = 100
 else if(difficulty === "medium") totalCells = 81
 else if(difficulty === "hard") totalCells = 49
+
+startTime = Date.now()
 
 
     let bombs = []
@@ -90,17 +92,26 @@ else if(difficulty === "hard") totalCells = 49
                         gameOver = true;
                         message.innerText = " Complimenti, hai raggiunto il punteggio di 20 celle sicure🎉! HAI VINTO🎉! "
                         overlay.style.display = 'flex';
+                        endTime = Date.now()
+                        differenceTime = endTime - startTime
+                        msTime = Math.floor(differenceTime / 1000); 
     
                     }else if(difficulty === "medium" && score >= 30) {
                         gameOver = true;
                         message.innerText = " Complimenti, hai raggiunto il punteggio di 30 celle sicure🎉! HAI VINTO🎉! "
                         overlay.style.display = 'flex';
+                        endTime = Date.now()
+                        differenceTime = endTime - startTime
+                        msTime = Math.floor(differenceTime / 1000);  
     
                     }
                     else if(difficulty === "easy" && score >= 40) {
                         gameOver = true;
                         message.innerText = " Complimenti, hai raggiunto il punteggio di 40 celle sicure🎉! HAI VINTO🎉! "
                         overlay.style.display = 'flex';
+                        endTime = Date.now()
+                        differenceTime = endTime - startTime
+                        msTime = Math.floor(differenceTime / 1000); 
     
                     }
                 }
@@ -115,6 +126,7 @@ else if(difficulty === "hard") totalCells = 49
 restart.addEventListener("click", () => {
     overlay.style.display = "none";
     containerCells.innerHTML = ""
+    counter.innerHTML = ""
     startGame(difficulty)
 })
 

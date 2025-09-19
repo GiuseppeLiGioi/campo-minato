@@ -74,13 +74,13 @@ Quando vinci:
 ![Home](./screenshots/campo-1.jpg)
 
 ### Griglie di Gioco
-![Gameplay](./screenshots/campo-2.png)
+![Gameplay](./screenshots/campo-2.jpg)
 
 ### Output e visualizzazione sconfitta
-![Gameplay](./screenshots/campo-3.png)
+![Gameplay](./screenshots/campo-3.jpg)
 
 ### Output e visualizzazione vittoria
-![Gameplay](./screenshots/campo-4.png)
+![Gameplay](./screenshots/campo-4.jpg)
 
 
 

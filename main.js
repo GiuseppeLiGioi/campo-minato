@@ -19,8 +19,14 @@ function startGame(difficulty) {
     else if (difficulty === "medium") totalCells = 81
     else if (difficulty === "hard") totalCells = 49
 
+    containerCells.classList.remove("easy", "medium", "hard");
+    containerCells.classList.add(difficulty);
+
     startTime = Date.now()
     bestTime = getBestTime(difficulty)
+
+    bsTime.innerHTML = bestTime || "--";
+
 
 
     let bombs = []
@@ -90,46 +96,49 @@ function startGame(difficulty) {
                 } else {
                     score++;
                     counter.innerHTML = `${"Contatore:" + score}`
-                    if (difficulty === "hard" && score >= 20) {
+                    if (difficulty === "hard" && score >= 10) {
+                        gameOver = true;
+                        message.innerText = " Complimenti, hai raggiunto il punteggio di 10 celle sicure🎉! HAI VINTO🎉! "
+                        overlay.style.display = 'flex';
+                        endTime = Date.now()
+                        differenceTime = endTime - startTime
+                        msTime = differenceTime / 1000;
+                        if (msTime < bestTime || bestTime === null) {
+                            saveBestTime(difficulty, msTime)
+                            bestTime = msTime
+                            bsTime.innerHTML = `Miglior tempo per il livello ${difficulty}: ${bestTime} secondi`
+
+                        }
+
+
+                    } else if (difficulty === "medium" && score >= 12) {
+                        gameOver = true;
+                        message.innerText = " Complimenti, hai raggiunto il punteggio di 12 celle sicure🎉! HAI VINTO🎉! "
+                        overlay.style.display = 'flex';
+                        endTime = Date.now()
+                        differenceTime = endTime - startTime
+                        msTime = differenceTime / 1000;
+                        if (msTime < bestTime || bestTime === null) {
+                            saveBestTime(difficulty, msTime)
+                            bestTime = msTime
+                            bsTime.innerHTML = `Miglior tempo per il livello ${difficulty}: ${bestTime} secondi`
+
+                        }
+
+
+                    }
+                    else if (difficulty === "easy" && score >= 5) {
                         gameOver = true;
                         message.innerText = " Complimenti, hai raggiunto il punteggio di 20 celle sicure🎉! HAI VINTO🎉! "
                         overlay.style.display = 'flex';
                         endTime = Date.now()
                         differenceTime = endTime - startTime
-                        msTime = Math.floor(differenceTime / 1000);
+                        msTime = differenceTime / 1000;
                         if (msTime < bestTime || bestTime === null) {
                             saveBestTime(difficulty, msTime)
                             bestTime = msTime
-                            bsTime.innerHTML = bestTime
-                        }
+                            bsTime.innerHTML = `Miglior tempo per il livello ${difficulty}: ${bestTime} secondi`
 
-
-                    } else if (difficulty === "medium" && score >= 30) {
-                        gameOver = true;
-                        message.innerText = " Complimenti, hai raggiunto il punteggio di 30 celle sicure🎉! HAI VINTO🎉! "
-                        overlay.style.display = 'flex';
-                        endTime = Date.now()
-                        differenceTime = endTime - startTime
-                        msTime = Math.floor(differenceTime / 1000);
-                        if (msTime < bestTime || bestTime === null) {
-                            saveBestTime(difficulty, msTime)
-                            bestTime = msTime
-                            bsTime.innerHTML = bestTime
-                        }
-
-
-                    }
-                    else if (difficulty === "easy" && score >= 40) {
-                        gameOver = true;
-                        message.innerText = " Complimenti, hai raggiunto il punteggio di 40 celle sicure🎉! HAI VINTO🎉! "
-                        overlay.style.display = 'flex';
-                        endTime = Date.now()
-                        differenceTime = endTime - startTime
-                        msTime = Math.floor(differenceTime / 1000);
-                        if (msTime < bestTime || bestTime === null) {
-                            saveBestTime(difficulty, msTime)
-                            bestTime = msTime
-                            bsTime.innerHTML = bestTime
                         }
 
                     }

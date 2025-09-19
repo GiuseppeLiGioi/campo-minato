@@ -4,26 +4,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Campo minato</title>
+    <title>Campo Minato App</title>
     <link rel="stylesheet" href="./style.css">
 </head>
 
 <body>
 
-    <h3 id="counter">Contatore: </h3>
+    <header>
+        <h1>💣 Campo Minato 💣</h1>
+        <p>Seleziona la difficoltà e prova a non far esplodere le bombe!</p>
+    </header>
 
-    <div id="difficulty-buttons">
-        <button id="easy">Facile</button>
-        <button id="medium">Medio</button>
-        <button id="hard">Difficile</button>
-    </div>
+    <section id="controls">
+        <h3 id="counter">Contatore: </h3>
 
-    <p class="best-time">Best Time: </p>
+        <div id="difficulty-buttons">
+            <span>Seleziona difficoltà:</span>
+            <button id="easy">Facile</button>
+            <button id="medium">Medio</button>
+            <button id="hard">Difficile</button>
+        </div>
 
+        <p id="best-time"></p>
+    </section>
 
-    <div id="container-cells">
-
-    </div>
+    <section id="game-board">
+        <div id="container-cells" class="easy"></div>
+    </section>
 
     <div id="overlay" class="overlay">
         <div class="overlay-content">
@@ -32,8 +39,9 @@
         </div>
     </div>
 
-
-
+    <footer>
+        <p>Campo Minato App - Realizzato con ❤️ - Giuseppe Li Gioi</p>
+    </footer>
 
     <script src="./useStorage.js"></script>
     <script src="./main.js"></script>
